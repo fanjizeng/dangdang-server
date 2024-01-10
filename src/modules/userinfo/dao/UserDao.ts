@@ -1,8 +1,8 @@
-import { Op } from 'sequelize'
-import { model } from '../model/definemodel'
-import { Sequelize } from 'sequelize-typescript'
+import { Op, Sequelize } from 'sequelize'
+import { model } from '../model'
 
-class UserDaoDefine {
+class UserDao {
+  static UserDao: UserDao = new UserDao()
   static addUser(userinfo: UserInfo) {
     return model.create(userinfo)
   }
@@ -56,7 +56,7 @@ class UserDaoDefine {
   }
 }
 
-export const { addUser, findAllUser, findByUsmAndPsw, findByLike, countUserinfo, findPage } = UserDaoDefine
+export const { addUser, findAllUser, findByUsmAndPsw, findByLike, countUserinfo, findPage } = UserDao
 type UserInfo = {
   userid: string
   username: string

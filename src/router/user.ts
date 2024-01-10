@@ -1,8 +1,8 @@
 import { Context } from 'koa'
 import Router from 'koa-router'
 import { success } from '../common/ResResult'
-import { addUser, findAllUser, findByUsmAndPsw, findByLike, countUserinfo, findPage } from '../dao/UserDaoDefine'
-import OrmUser from '../dao/UserDaoOrm'
+import { addUser, findAllUser, findByUsmAndPsw, findByLike, countUserinfo, findPage } from '../modules/userinfo/dao/UserDao'
+import userDao from '../modules/userinfo/modelDao/UserDao'
 const router = new Router()
 
 router.prefix('/usermodule')
@@ -22,7 +22,7 @@ router.get("/findAllUser", async (ctx: Context) => {
   ctx.body = success(userInfo, '获取全部数据')
 })
 router.get("/findAUser", async (ctx: Context) => {
-  const userInfo = await OrmUser.findAuser()
+  const userInfo = await userDao.findAuser()
   ctx.body = success(userInfo, '获取全部数据')
 })
 

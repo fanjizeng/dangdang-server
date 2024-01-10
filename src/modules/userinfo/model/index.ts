@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize'
-import { sequelize } from '../dao/BaseDaoDefine'
+import { sequelize } from '../../BaseDao'
 
 class UserInfo {
   static createModel() {
