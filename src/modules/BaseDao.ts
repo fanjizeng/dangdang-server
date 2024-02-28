@@ -17,7 +17,14 @@ class BaseDao {
       host,
       port,
       dialect, // 方言表示何种数据库
-      define: { timestamps: false, freezeTableName: true }
+      define: { timestamps: false, freezeTableName: true },
+      pool: {
+        // 数据库连接池
+        max: 50,
+        min: 10,
+        idle: 10000, // 空闲等待时间，超过后，自动释放未利用的连接
+        acquire: 10000 // 服务器连接超时时间
+      }
     })
   }
   addModel() {
