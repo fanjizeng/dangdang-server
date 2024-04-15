@@ -3,6 +3,7 @@ import { get } from '../decorator/reqmenthoddecorator'
 import { Controller } from '../decorator/controllerdecorator'
 import CtgyDao from '../modules/ctgy/dao/CtgyDao'
 import { success } from '../common/ResResult'
+import ctgyService from '../modules/ctgy/service/CtgyService'
 import 'reflect-metadata'
 
 @Controller('/ctgymodule')
@@ -21,8 +22,7 @@ class CtgyController {
   }
   @get('/findFirstCtgyList')
   async findFirstCtgyList(ctx: Context) {
-    const { firstctgyid } = ctx.params
-    const ctgyInfo = await CtgyDao.findFstCtgys()
+    const ctgyInfo = await ctgyService.findFirstCtgys()
     ctx.body = success(ctgyInfo, '请求成功')
   }
   @get('/findThirdCtgy/:thirdctgyid')
@@ -32,4 +32,3 @@ class CtgyController {
     ctx.body = success(ctgyInfo, '请求成功')
   }
 }
-

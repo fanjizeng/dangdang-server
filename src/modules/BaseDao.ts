@@ -27,11 +27,11 @@ class BaseDao {
       }
     })
   }
-  addModel() {
+  addModels() {
     const ModelPath = path.join(process.cwd(), '/src/modules/decormModel')
     this.sequelize.addModels([ModelPath])
   }
 }
-const baseDao = BaseDao.baseDao
-baseDao.addModel()
+export const baseDao = BaseDao.baseDao
+baseDao.addModels()
 export const { sequelize } = baseDao

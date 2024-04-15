@@ -1,6 +1,7 @@
 import { secCtgyModel } from './SecCtgyModel'
 import { thirdCtgyModel } from './ThirdCtgyModel'
 import { firstModel } from './index'
+import Ctgys from '../../../modules/decormModel/ctgys'
 secCtgyModel.hasMany(thirdCtgyModel, { as: 'thirdctgy', foreignKey: 'secctgyid' })
 thirdCtgyModel.belongsTo(secCtgyModel, { foreignKey: 'secctgyid', targetKey: 'secondctgyid' })
 
@@ -32,11 +33,8 @@ async function findThirdCtgyBySecId(secctgyId: number) {
   return result
 }
 async function findAllFirstCtgy() {
-  const result = await firstModel.findAll({
-    attributes: [
-      'firstCtgyId',
-      'firstctgyname',
-    ]
+  const result = await Ctgys.findAll({
+    raw: true
   })
   return result
 }

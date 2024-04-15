@@ -27,7 +27,6 @@ class AllCtrlRouterLoader {
     rootRouter.prefix('/dang')
     this.app.context.rootRouter = rootRouter
     this.app.use(rootRouter.routes())
-    console.log(this.app, '中间')
   }
   // 1. 加载所有路由文件数组
   getFiles(dir: string) {

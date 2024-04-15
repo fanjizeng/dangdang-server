@@ -115,8 +115,8 @@ function getNoReptItem<T extends ItemType<T>[], K extends keyof EleOfArr<T> = ke
   })
   return data
 }
-function combine<T extends Record<string, any>[]>(...unionObj: T): UnionToIntersection<T[number]>
-function combine<T extends Record<string, any>[]>(...unionObj: T) {
+export function combine<T extends Record<string, any>[]>(...unionObj: T): UnionToIntersection<T[number]>
+export function combine<T extends Record<string, any>[]>(...unionObj: T) {
   return unionObj.reduce((pre, cur) => {
     return { ...pre, ...cur }
   }, {})
@@ -136,7 +136,6 @@ export default function convert(secThrCtgys: SecThrCtgyList) {
   
   // 定义最终返回前端的二三级分类数组类型
   const relativeSecThrCtgyLst = combineRelativeCtgy(noReptSecCtgyList, "thirdctgyList", [])
-  console.log(relativeSecThrCtgyLst, '--000')
   // 定义最终返回前端的二三级数组
   let lastSecThrCtgyList: typeof relativeSecThrCtgyLst = []
   // 定义最终返回前端的二三级分类类型
@@ -156,7 +155,6 @@ export default function convert(secThrCtgys: SecThrCtgyList) {
     const lastSecThrdCtgy: LastSecThrdCtgy = combine(noReptSecCtgy, { thirdctgyList: lastThrdList })
     lastSecThrCtgyList.push(lastSecThrdCtgy)
   })
-  console.log(lastSecThrCtgyList, '--->>>')
   return lastSecThrCtgyList
 }
 const secondCtgys = getSubItemFrmArr(secThrCtgys, 'secondctgyid', 'secctgyname')

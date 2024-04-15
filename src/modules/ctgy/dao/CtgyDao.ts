@@ -1,7 +1,6 @@
 import { sequelize } from '../../../modules/BaseDao'
 import { findAllFirstCtgy, findThirdCtgyBySecId } from '../model/OneToMany'
 import convert from '../../../tstypes/index'
-
 type SecThrCtgyList = {
   secondctgyid: number,
   secctgyname: string,
