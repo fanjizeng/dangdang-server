@@ -4,6 +4,7 @@ import Router from 'koa-router'
 import Koa from 'koa'
 import body from 'koa-body'
 import json from 'koa-json'
+import koajwt from 'koa-jwt'
 import globalException from './GlobalExce'
 class AllCtrlRouterLoader {
   app!: Koa
@@ -21,6 +22,7 @@ class AllCtrlRouterLoader {
     this.app.use(json())
     this.app.use(body())
     this.app.use(globalException)
+    this.app.use(koajwt({ secret: 'jashf09033239' }).unless({ path: [/^\/dang\/usermodule\/login/, /^\/dang\/ctgymodule/] }))
   }
   storeRootRouterToCtx() {
     const rootRouter = new Router()
@@ -55,19 +57,19 @@ class AllCtrlRouterLoader {
   getChildAbsPath(dir: string, filePaths: string[] = []) {
     const allFiles = this.getFiles(dir)
     allFiles.forEach(e => {
-      if(this.isCtrlFile(e)) {
+      if (this.isCtrlFile(e)) {
         let currentPath = path.join(dir, e)
         let stat = fs.lstatSync(currentPath);
-        if(stat.isDirectory()) {
+        if (stat.isDirectory()) {
           filePaths = this.getChildAbsPath(currentPath, filePaths)
-        }else if(stat.isFile()) {
+        } else if (stat.isFile()) {
           filePaths.push(currentPath)
         }
       }
     });
     return filePaths
   }
-  isRouter(data: any):data is Router {
+  isRouter(data: any): data is Router {
     return data instanceof Router
   }
   // 3. 加载所有一级路由到二级路由中
@@ -79,12 +81,11 @@ class AllCtrlRouterLoader {
   }
   // 调用加载所有一级路由到二级路由方法
   loadAllRouter(allFilePaths: string[]) {
-    for(let fullFilePath of allFilePaths) {
-      console.log(fullFilePath, '---加载路由')
+    for (let fullFilePath of allFilePaths) {
       require(fullFilePath)
     }
   }
- 
+
   // 监听方法
   listen() {
     this.app.listen(3002)

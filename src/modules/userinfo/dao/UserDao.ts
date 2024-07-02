@@ -6,6 +6,12 @@ class UserDao {
   static addUser(userinfo: UserInfo) {
     return model.create(userinfo)
   }
+  static findOneUser(username: string, password: string) {
+    return model.findOne({
+      raw: true,
+      where: { username, password }
+    })
+  }
   static findAllUser() {
     return model.findAll({
       raw: true
@@ -56,11 +62,12 @@ class UserDao {
   }
 }
 
-export const { addUser, findAllUser, findByUsmAndPsw, findByLike, countUserinfo, findPage } = UserDao
-type UserInfo = {
+export const { addUser, findOneUser, findAllUser, findByUsmAndPsw, findByLike, countUserinfo, findPage } = UserDao
+export type UserInfo = {
   userid: string
   username: string
   password: string
   address?: string
   valid: number
+  token?: string
 }

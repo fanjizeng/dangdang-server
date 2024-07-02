@@ -27,7 +27,7 @@ type ItemType<T extends object[]> = {
   [K in keyof EleOfArr<T>]: EleOfArr<T>[K]
 }
 type ResltType = ItemType<SecThrCtgyList>
-function getSubItemFrmArr<T extends ItemType<T>[], K extends keyof EleOfArr<T>>(t: T, ...keys: K[]): Pick<EleOfArr<T>, K>[] {
+export function getSubItemFrmArr<T extends ItemType<T>[], K extends keyof EleOfArr<T>>(t: T, ...keys: K[]): Pick<EleOfArr<T>, K>[] {
   return t.map(item => {
     return keys.reduce((pre, cur, index) => {
       return { ...pre, [keys[index]]: item[keys[index]] }
@@ -44,7 +44,7 @@ function getNoReptValsItem(arr: any[]) {
   const data: any[] = []
   return arr.filter((item) => !data.includes(item) && data.push(item))
 }
-function getNoReptItem<T extends ItemType<T>[], K extends keyof EleOfArr<T> = keyof EleOfArr<T>>(arr: T, k: K): ItemType<T>[] {
+export function getNoReptItem<T extends ItemType<T>[], K extends keyof EleOfArr<T> = keyof EleOfArr<T>>(arr: T, k: K): ItemType<T>[] {
   const data: ItemType<T>[] = []
   // 1 获取对象中某个元素的值组成的数组
   let oneItemValues: any[] = getOneItemValuesFrmArr(arr, k)
@@ -69,7 +69,7 @@ export function combine<T extends Record<string, any>[]>(...unionObj: T) {
     return { ...pre, ...cur }
   }, {})
 }
-function combineRelativeCtgy<T extends ItemType<T>[]>(arr: T,
+export function combineRelativeCtgy<T extends ItemType<T>[]>(arr: T,
   realtiveKey: string, realtiveValues: any) {
   return arr.map(item => {
     return combine(item, { [realtiveKey]: realtiveValues })
@@ -106,3 +106,9 @@ export default function convert<T extends ItemType<T>[], K extends keyof EleOfAr
 }
 const combineObj = combine({ username: 'www', age: '12' }, { phone: '13024444' })
 
+export function addEntryToArr<T extends EleOfArr<T>[], K extends keyof EleOfArr<T>>(arr: T, k: K, v: any) {
+  return arr.map((item) => {
+    item[k] = v
+    return item
+  })
+}

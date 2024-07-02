@@ -7,8 +7,8 @@ class ResRult {
     const code: Code = Code.SUCCESS
     return { data, msg, code}
   }
-  static fail(msg: any = '') {
-    const code: Code = Code.SERVER_ERROR
+  static fail(msg: any = '', status?: number) {
+    const code = status ? status : Code.SERVER_ERROR
     return { undefined, msg, code}
   }
 }
