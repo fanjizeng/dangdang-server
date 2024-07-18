@@ -20,7 +20,7 @@ class Conf {
   defaultDbConf: DbConconf = {
     host: 'localhost',
     user: 'hansen',
-    password: 'zeng940908',
+    password: '123456',
     database: 'DANG_DATA',
     port: 3306
   }
